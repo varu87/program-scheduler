@@ -3,12 +3,12 @@
   import fileExportOutline from "@iconify/icons-mdi/file-export-outline";
   import menuIcon from "@iconify/icons-mdi/menu";
   import closeOctagonOutline from "@iconify/icons-mdi/close-octagon-outline";
-  import YearPicker from "$lib/components/YearPicker.svelte";
-  import { MONTHS, DAYS } from "$lib/Constants";
-  import Modal from "$lib/components/Modal.svelte";
-  import MonthTemplate from "$lib/components/MonthTemplate.svelte";
-  import { programData } from "$lib/store";
-  import DayTemplate from "$lib/components/DayTemplate.svelte";
+  import { DAYS, MONTHS } from "./lib/Constants";
+  import YearPicker from "./lib/components/YearPicker.svelte";
+  import { programData } from "./lib/store";
+  import Modal from "./lib/components/Modal.svelte";
+  import MonthTemplate from "./lib/components/MonthTemplate.svelte";
+  import DayTemplate from "./lib/components/DayTemplate.svelte";
 
   const year = new Date().getFullYear();
   let yearPickerVisible = false;
@@ -113,159 +113,164 @@
   <title>Program Scheduler</title>
 </svelte:head>
 
-<section>
-  <div class="content">
-    <h1 class="header">
-      <div class="year">
-        <button on:click={() => (yearPickerVisible = true)}>
-          {currentYear}
-        </button>
-        <div class="year-picker" class:visible={yearPickerVisible}>
-          <YearPicker
-            on:closeButtonClicked={closeButtonClicked}
-            on:yearButtonClicked={yearButtonClicked}
-          />
-        </div>
-      </div>
-      <div class="title">Program Scheduler</div>
-      <div class="icons">
-        <button
-          title="Program for every month"
-          on:click={() => openMonthlyModal(null)}
-        >
-          <Icon icon={menuIcon} />
-        </button>
-        <button title="Clear All" on:click={() => clear(null)}>
-          <Icon icon={closeOctagonOutline} />
-        </button>
-        <a href={getHref(null)} title="Export to CSV">
-          <Icon icon={fileExportOutline} />
-        </a>
-      </div>
-    </h1>
-    <div>
-      {#each monthlyData as month, monthIndex}
-        <h1 class="month-header">
-          <div class="title">
-            {month.month}
+<main>
+  <section>
+    <div class="content">
+      <h1 class="header">
+        <div class="year">
+          <button on:click={() => (yearPickerVisible = true)}>
             {currentYear}
+          </button>
+          <div class="year-picker" class:visible={yearPickerVisible}>
+            <YearPicker
+              on:closeButtonClicked={closeButtonClicked}
+              on:yearButtonClicked={yearButtonClicked}
+            />
           </div>
-          <div class="icons">
-            <button
-              title="Program for {month.month}"
-              on:click={() => openMonthlyModal(monthIndex)}
-            >
-              <Icon icon={menuIcon} />
-            </button>
-            <button title="Clear" on:click={() => clear(monthIndex)}>
-              <Icon icon={closeOctagonOutline} />
-            </button>
-            <a href={getHref(monthIndex)} title="Export to CSV">
-              <Icon icon={fileExportOutline} />
-            </a>
-          </div>
-        </h1>
-        <table>
-          <tr class="day">
-            {#each DAYS as day}
-              <th>{day.abbr}</th>
-            {/each}
-          </tr>
-          {#each [...Array.from(Array(Math.ceil((month.startDay + month.numberOfDays) / 7)).keys())] as weekIndex}
-            <tr>
-              {#each DAYS as _, dayIndex}
-                <td>
-                  {#if Boolean(currentDate(month.startDay, month.numberOfDays, weekIndex, dayIndex))}
-                    <button
-                      class="competition-details"
-                      data-date="{currentDate(
-                        month.startDay,
-                        month.numberOfDays,
-                        weekIndex,
-                        dayIndex
-                      )} {month.month} {currentYear}"
-                      data-program={programName(
-                        monthIndex + 1,
-                        month.startDay,
-                        weekIndex,
-                        dayIndex
-                      )}
-                      title="Program for {currentDate(
-                        month.startDay,
-                        month.numberOfDays,
-                        weekIndex,
-                        dayIndex
-                      )} {month.month} {currentYear}"
-                      class:highlight={Boolean(
-                        currentDate(
+        </div>
+        <div class="title">Program Scheduler</div>
+        <div class="icons">
+          <button
+            title="Program for every month"
+            on:click={() => openMonthlyModal(null)}
+          >
+            <Icon icon={menuIcon} />
+          </button>
+          <button title="Clear All" on:click={() => clear(null)}>
+            <Icon icon={closeOctagonOutline} />
+          </button>
+          <a href={getHref(null)} title="Export to CSV">
+            <Icon icon={fileExportOutline} />
+          </a>
+        </div>
+      </h1>
+      <div>
+        {#each monthlyData as month, monthIndex}
+          <h1 class="month-header">
+            <div class="title">
+              {month.month}
+              {currentYear}
+            </div>
+            <div class="icons">
+              <button
+                title="Program for {month.month}"
+                on:click={() => openMonthlyModal(monthIndex)}
+              >
+                <Icon icon={menuIcon} />
+              </button>
+              <button title="Clear" on:click={() => clear(monthIndex)}>
+                <Icon icon={closeOctagonOutline} />
+              </button>
+              <a href={getHref(monthIndex)} title="Export to CSV">
+                <Icon icon={fileExportOutline} />
+              </a>
+            </div>
+          </h1>
+          <table>
+            <tr class="day">
+              {#each DAYS as day}
+                <th>{day.abbr}</th>
+              {/each}
+            </tr>
+            {#each [...Array.from(Array(Math.ceil((month.startDay + month.numberOfDays) / 7)).keys())] as weekIndex}
+              <tr>
+                {#each DAYS as _, dayIndex}
+                  <td>
+                    {#if Boolean(currentDate(month.startDay, month.numberOfDays, weekIndex, dayIndex))}
+                      <button
+                        class="competition-details"
+                        data-date="{currentDate(
                           month.startDay,
                           month.numberOfDays,
                           weekIndex,
                           dayIndex
-                        )
-                      )}
-                      on:click={(e) =>
-                        openDailyModal(
-                          e.currentTarget.getAttribute("data-date"),
-                          e.currentTarget.getAttribute("data-program")
-                        )}
-                    >
-                      <span class="competition-date">
-                        {currentDate(
-                          month.startDay,
-                          month.numberOfDays,
-                          weekIndex,
-                          dayIndex
-                        )}
-                      </span>
-                      <span class="competition-name">
-                        {programName(
+                        )} {month.month} {currentYear}"
+                        data-program={programName(
                           monthIndex + 1,
                           month.startDay,
                           weekIndex,
                           dayIndex
                         )}
-                      </span>
-                    </button>
-                  {/if}
-                </td>
-              {/each}
-            </tr>
-          {/each}
-        </table>
-      {/each}
+                        title="Program for {currentDate(
+                          month.startDay,
+                          month.numberOfDays,
+                          weekIndex,
+                          dayIndex
+                        )} {month.month} {currentYear}"
+                        class:highlight={Boolean(
+                          currentDate(
+                            month.startDay,
+                            month.numberOfDays,
+                            weekIndex,
+                            dayIndex
+                          )
+                        )}
+                        on:click={(e) =>
+                          openDailyModal(
+                            e.currentTarget.getAttribute("data-date"),
+                            e.currentTarget.getAttribute("data-program")
+                          )}
+                      >
+                        <span class="competition-date">
+                          {currentDate(
+                            month.startDay,
+                            month.numberOfDays,
+                            weekIndex,
+                            dayIndex
+                          )}
+                        </span>
+                        <span class="competition-name">
+                          {programName(
+                            monthIndex + 1,
+                            month.startDay,
+                            weekIndex,
+                            dayIndex
+                          )}
+                        </span>
+                      </button>
+                    {/if}
+                  </td>
+                {/each}
+              </tr>
+            {/each}
+          </table>
+        {/each}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<Modal
-  showModal={showMonthlyModal}
-  title="Program for {selectedMonth !== null
-    ? MONTHS[selectedMonth]
-    : currentYear}"
-  on:closeModal={closeMonthlyModal}
-  size="FULL_SCREEN"
->
-  <MonthTemplate
-    month={selectedMonth}
-    year={currentYear}
-    on:monthTemplateCloseButtonClicked={closeMonthlyModal}
-  />
-</Modal>
+  <Modal
+    showModal={showMonthlyModal}
+    title="Program for {selectedMonth !== null
+      ? MONTHS[selectedMonth]
+      : currentYear}"
+    on:closeModal={closeMonthlyModal}
+    size="FULL_SCREEN"
+  >
+    <MonthTemplate
+      month={selectedMonth}
+      year={currentYear}
+      on:monthTemplateCloseButtonClicked={closeMonthlyModal}
+    />
+  </Modal>
 
-<Modal
-  showModal={showDailyModal}
-  title="Program for {selectedDate}"
-  on:closeModal={closeDailyModal}
->
-  <DayTemplate
-    {selectedDate}
-    {selectedDateProgram}
-    on:dayTemplateCloseButtonClicked={closeDailyModal}
-  />
-</Modal>
+  <Modal
+    showModal={showDailyModal}
+    title="Program for {selectedDate}"
+    on:closeModal={closeDailyModal}
+  >
+    <DayTemplate
+      {selectedDate}
+      {selectedDateProgram}
+      on:dayTemplateCloseButtonClicked={closeDailyModal}
+    />
+  </Modal>
+</main>
 
 <style>
+  main {
+    min-height: 100vh;
+  }
   section {
     display: flex;
     flex-direction: column;

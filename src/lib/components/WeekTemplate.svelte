@@ -1,7 +1,7 @@
 <script lang="ts">
   import { slide } from "svelte/transition";
-  import { DAYS, MONTHS } from "$lib/Constants";
-  import { programData, templateData } from "$lib/store";
+  import { DAYS, MONTHS } from "../Constants";
+  import { programData, templateData } from "../store";
 
   export let day: number;
   export let month: number | null = null;

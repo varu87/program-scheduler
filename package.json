@@ -1,28 +1,25 @@
 {
-	"name": "program-scheduler",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"deploy": "npm run build && npx gh-pages -d build"
-	},
-	"devDependencies": {
-		"@iconify/icons-mdi": "^1.2.44",
-		"@iconify/svelte": "^3.1.1",
-		"@sveltejs/adapter-auto": "^2.0.0",
-		"@sveltejs/adapter-static": "^2.0.2",
-		"@sveltejs/kit": "^1.5.0",
-		"gh-pages": "^5.0.0",
-		"svelte": "^3.54.0",
-		"svelte-check": "^3.0.1",
-		"tslib": "^2.4.1",
-		"typescript": "^5.0.0",
-		"vite": "^4.2.0"
-	},
-	"type": "module",
-	"homepage": "https://varu87.github.io/project-scheduler"
+  "name": "program-scheduler",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "deploy": "npm run build && npx gh-pages -d dist"
+  },
+  "devDependencies": {
+    "@iconify/icons-mdi": "^1.2.44",
+    "@iconify/svelte": "^3.1.3",
+    "@sveltejs/vite-plugin-svelte": "^2.0.3",
+    "@tsconfig/svelte": "^4.0.1",
+    "gh-pages": "^5.0.0",
+    "svelte": "^3.57.0",
+    "svelte-check": "^2.10.3",
+    "tslib": "^2.5.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2"
+  }
 }

@@ -2,6 +2,11 @@
 
 A program scheduler application built using SvelteKit as part of a CRM tool for golf clubs. It allows users to schedule and export yearly programs.
 
+- The hamburger icon button opens the modal to assign the program for the year or a month.
+- The clear icon button removes the program for the whole year or the selected month.
+- The export icon button exports the program into a csv file.
+- Clicking on a particular date opens the modal to assign the program for the date.
+
 ## Features
 
 - Schedule program for the whole year or a month or a day.

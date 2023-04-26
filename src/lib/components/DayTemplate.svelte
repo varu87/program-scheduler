@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import { MONTHS } from "$lib/Constants";
-  import { programData } from "$lib/store";
+  import { MONTHS } from "../Constants";
+  import { programData } from "../store";
 
   const dispatch = createEventDispatcher();
   export let selectedDate: string;
