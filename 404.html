@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="/favicon.png" />
+		<meta name="viewport" content="width=device-width" />
+		<meta http-equiv="content-security-policy" content="">
+		<link rel="modulepreload" href="/_app/immutable/entry/start.41a8f6ee.js">
+		<link rel="modulepreload" href="/_app/immutable/chunks/index.1778a9df.js">
+		<link rel="modulepreload" href="/_app/immutable/chunks/singletons.691efd75.js">
+		<link rel="modulepreload" href="/_app/immutable/chunks/index.f04353c4.js">
+		<link rel="modulepreload" href="/_app/immutable/entry/app.c58f72b4.js">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<script>
+			(function (l) {
+				if (l.search[1] === '/') {
+					var decoded = l.search.slice(1).split('&').map(function (s) {
+						return s.replace(/~and~/g, '&')
+					}).join('?');
+					window.history.replaceState(null, '',
+						l.pathname.slice(0, -1) + decoded + l.hash
+					);
+				}
+			}(window.location))
+		</script>
+		<div style="display: contents">
+			<script>
+				{
+					__sveltekit_1wf2wnl = {
+						env: {},
+						base: "",
+						element: document.currentScript.parentElement
+					};
+
+					Promise.all([
+						import("/_app/immutable/entry/start.41a8f6ee.js"),
+						import("/_app/immutable/entry/app.c58f72b4.js")
+					]).then(([kit, app]) => {
+						kit.start(app, __sveltekit_1wf2wnl.element);
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>
