@@ -7,6 +7,8 @@ A program scheduler application built using SvelteKit as part of a CRM tool for 
 - The export icon button exports the program into a csv file.
 - Clicking on a particular date opens the modal to assign the program for the date.
 
+Live website at: https://varu87.github.io/program-scheduler/
+
 ## Features
 
 - Schedule program for the whole year or a month or a day.

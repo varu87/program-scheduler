@@ -125,7 +125,10 @@
           );
           if (existingProgramData.length > 0) {
             existingProgramData[0].name = p.name;
-            $programData = [...$programData, existingProgramData[0]];
+            $programData = [
+              ...$programData.filter((d) => d.dateString !== p.dateString),
+              existingProgramData[0],
+            ];
           } else {
             $programData = [...$programData, p];
           }
@@ -139,7 +142,10 @@
         );
         if (existingProgramData.length > 0) {
           existingProgramData[0].name = p.name;
-          $programData = [...$programData, existingProgramData[0]];
+          $programData = [
+            ...$programData.filter((d) => d.dateString !== p.dateString),
+            existingProgramData[0],
+          ];
         } else {
           $programData = [...$programData, p];
         }
