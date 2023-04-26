@@ -30,3 +30,4 @@ To deploy this application to a production environment, follow these steps:
 This project was built using the following technologies:
 
 - [SvelteKit](https://kit.svelte.dev/)
+- [Iconify](https://iconify.design/)
