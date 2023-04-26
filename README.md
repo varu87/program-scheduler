@@ -11,7 +11,7 @@ A program scheduler application built using SvelteKit as part of a CRM tool for 
 
 To run this application on your local machine, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-username/program-scheduler.git`
+1. Clone the repository: `git clone https://github.com/varu87/program-scheduler.git`
 2. Navigate to the project directory: `cd program-scheduler`
 3. Install dependencies: `npm install`
 4. Start the development server: `npm run dev`
