@@ -21,16 +21,7 @@ To run this application on your local machine, follow these steps:
 1. Clone the repository: `git clone https://github.com/varu87/program-scheduler.git`
 2. Navigate to the project directory: `cd program-scheduler`
 3. Install dependencies: `npm install`
-4. Start the development server: `npm run dev`
-5. Open your web browser and navigate to `http://localhost:3000`
-
-## Deploying to Production
-
-To deploy this application to a production environment, follow these steps:
-
-1. Create a production build: `npm run build`
-2. Start the server: `npm start`
-3. Open your web browser and navigate to the URL provided by your hosting provider
+4. Start the development server: `npm run dev -- --open`
 
 ## Credits
 

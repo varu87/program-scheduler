@@ -1,7 +1,8 @@
 <script lang="ts">
   import { slide } from "svelte/transition";
-  import { DAYS, MONTHS } from "../Constants";
-  import { programData, templateData } from "../store";
+  import { templateData } from "../store/templateData";
+  import { programData } from "../store/programData";
+  import { DAYS, MONTHS } from "../constants";
 
   export let day: number;
   export let month: number | null = null;
@@ -81,6 +82,24 @@
     });
   };
 
+  const saveProgramData = (month: number) => {
+    const monthProgram = assignByMonth(month);
+    monthProgram.map((p) => {
+      const existingProgramData = $programData.filter(
+        (d) => d.dateString === p.dateString
+      );
+      if (existingProgramData.length > 0) {
+        existingProgramData[0].name = p.name;
+        $programData = [
+          ...$programData.filter((d) => d.dateString !== p.dateString),
+          existingProgramData[0],
+        ];
+      } else {
+        $programData = [...$programData, p];
+      }
+    });
+  };
+
   const handleAllInput = (value: string) => {
     first = second = third = fourth = fifth = value;
   };
@@ -118,38 +137,10 @@
     saveTemplate();
     if (month === null) {
       MONTHS.map((_, monthIndex) => {
-        const monthProgram = assignByMonth(monthIndex);
-        monthProgram.map((p) => {
-          const existingProgramData = $programData.filter(
-            (d) => d.dateString === p.dateString
-          );
-          if (existingProgramData.length > 0) {
-            existingProgramData[0].name = p.name;
-            $programData = [
-              ...$programData.filter((d) => d.dateString !== p.dateString),
-              existingProgramData[0],
-            ];
-          } else {
-            $programData = [...$programData, p];
-          }
-        });
+        saveProgramData(monthIndex);
       });
     } else {
-      const monthProgram = assignByMonth(month);
-      monthProgram.map((p) => {
-        const existingProgramData = $programData.filter(
-          (d) => d.dateString === p.dateString
-        );
-        if (existingProgramData.length > 0) {
-          existingProgramData[0].name = p.name;
-          $programData = [
-            ...$programData.filter((d) => d.dateString !== p.dateString),
-            existingProgramData[0],
-          ];
-        } else {
-          $programData = [...$programData, p];
-        }
-      });
+      saveProgramData(month);
     }
   };
 </script>

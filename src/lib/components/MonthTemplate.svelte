@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import { DAYS } from "../Constants";
+  import { DAYS } from "../constants";
   import WeekTemplate from "./WeekTemplate.svelte";
 
   const dispatch = createEventDispatcher();
